@@ -74,15 +74,8 @@ router.put('/:id', (req, res) => {
   const id = req.params.id
   const updatedUser = req.body
   Users.update(id, updatedUser)
-  .then(upUser => {
-    if(upUser){
-      Posts.findById(id)
-      .then(([user]) => {
-        res.status(201).json(user, {message: 'User updated'})
-      })
-    } else {
-      res.status(404).json({ error: 'User could not be found'})
-    }
+  .then(upUser => {  
+    res.status(201).json({message: 'User updated'})
   })
   .catch(err => {
     res.status(500).json({ error: 'User could not be updated'})
@@ -109,7 +102,6 @@ function validateUserId(req, res, next) {
 }
 
 function validateUser(req, res, next) {
-
   if(!req.body){
     res.status(400).json({ message: "Missing user data" })
   } else if ( !req.body.name){
