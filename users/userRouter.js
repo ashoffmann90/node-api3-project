@@ -70,7 +70,7 @@ router.delete('/:id', validateUserId, (req, res) => {
   })
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', validateUserId, validateUserId, (req, res) => {
   const id = req.params.id
   const updatedUser = req.body
   Users.update(id, updatedUser)
